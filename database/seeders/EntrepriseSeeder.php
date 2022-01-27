@@ -16,6 +16,17 @@ class EntrepriseSeeder extends Seeder
     {
         DB::table('entreprises')->insert([
             [
+                "user_id" => 1,
+                "nom"=>"Admin", 
+                "activite"=>"Admin", 
+                "ville"=>"Bruxelles", 
+                "pays"=>"Belgique", 
+                "code_postal"=>1000, 
+                "email"=>"electro@gmail.com", 
+                "nom_contact"=>"Lisa", 
+                "numero_contact"=>484961542, 
+            ],
+            [
                 "user_id" => 2,
                 "nom"=>"Electro", 
                 "activite"=>"électricité", 

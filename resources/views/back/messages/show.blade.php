@@ -7,6 +7,7 @@
 @stop
 
 @section('content')
+{{-- @dump($entreprise) --}}
     <div class="row">
         <div class="col-12">
             <div class="card card-primary card-outline direct-chat direct-chat-primary " >
@@ -46,7 +47,7 @@
                     <form action="{{route('messages.store')}}" method="post">
                         @csrf
                         <div class="input-group">
-                            <input type="number" name="entreprise" value="{{$entreprise->id}}" hidden>
+                            <input type="number" name="entreprise" value="{{$entreprise->tva}}" hidden>
                             <input type="text" name="message" placeholder="Type Message ..." class="form-control">
                             <span class="input-group-append">
                                 <button type="submit" class="btn btn-primary">Send</button>

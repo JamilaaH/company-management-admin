@@ -15,7 +15,8 @@ class CreateTachesTable extends Migration
     {
         Schema::create('taches', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('entreprise_id')->constrained();
+            $table->unsignedBigInteger('entreprise_id');
+            $table->foreign('entreprise_id')->references('TVA')->on('entreprises');
             $table->string('text');
             $table->boolean('etat');
             $table->timestamps();

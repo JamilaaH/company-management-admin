@@ -18,7 +18,7 @@ class CreateMessageriesTable extends Migration
             $table->unsignedBigInteger('author_id');
             $table->foreign('author_id')->references('id')->on('users');
             $table->unsignedBigInteger('entreprise_id');
-            $table->foreign('entreprise_id')->references('id')->on('entreprises');
+            $table->foreign('entreprise_id')->references('TVA')->on('entreprises');
             $table->text('message');
             $table->timestamps();
         });

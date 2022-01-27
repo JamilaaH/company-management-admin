@@ -41,9 +41,9 @@ class User extends Authenticatable
     // protected $casts = [
     //     'email_verified_at' => 'datetime',
     // ];
-    public function entreprises()
+    public function entreprise()
     {
-        return $this->hasMany(Entreprise::class);
+        return $this->hasOne(Entreprise::class, 'tva');
     }
 
     public function messages()
@@ -51,8 +51,5 @@ class User extends Authenticatable
         return $this->hasMany(Messagerie::class, 'author_id');
     }
 
-    public function adminUser()
-    {
-        return $this->hasOne(AdminUser::class);
-    }
+
 }

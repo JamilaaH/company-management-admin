@@ -17,10 +17,11 @@ class MessagerieController extends Controller
         return view("back.messages.index", compact('messages', 'reponse', 'entreprises'));
     }
 
-    public function show(Entreprise $id)
+    public function show( $tva)
     {
-        $entreprise = $id;
-        $messages = Messagerie::where('entreprise_id', $entreprise->id)->get();
+        $entreprise = Entreprise::where('tva', $tva)->first();
+        // return dd($entreprise);
+        $messages = Messagerie::where('entreprise_id', $entreprise->tva)->get();
         // return dd($messages);
         return view('back.messages.show', compact('messages', 'entreprise'));
     }

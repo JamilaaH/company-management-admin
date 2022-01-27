@@ -14,7 +14,7 @@ class CreateEntreprisesTable extends Migration
     public function up()
     {
         Schema::create('entreprises', function (Blueprint $table) {
-            $table->id();
+            $table->id('tva');
             $table->foreignId('user_id')->constrained();
             $table->string('nom');
             $table->string('activite');

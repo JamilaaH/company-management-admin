@@ -23,7 +23,7 @@
                         <select class="form-control" name="entreprise">
                             <option selected disabled>Choisir le nom</option>
                             @foreach ($entreprises as $entreprise)
-                                <option value="{{$entreprise->id}}">{{$entreprise->nom}}</option>
+                                <option value="{{$entreprise->tva}}">{{$entreprise->nom}}</option>
                             @endforeach
 
                         </select>
@@ -32,8 +32,6 @@
                         <label>Tache</label>
                         <textarea class="form-control" rows="3" placeholder="Enter ..." name="message"></textarea>
                       </div>
-
-
                   </div>
                   <!-- /.card-body -->
   

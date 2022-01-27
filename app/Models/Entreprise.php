@@ -16,7 +16,7 @@ class Entreprise extends Model
 
     public function messages()
     {
-        return $this->hasMany(Messagerie::class);
+        return $this->hasMany(Messagerie::class, 'entreprise_id', 'tva');
     }
 
     public function taches()
