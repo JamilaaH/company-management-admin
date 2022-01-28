@@ -18,6 +18,7 @@ class CreateEntreprisesTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->string('nom');
             $table->string('activite');
+            $table->string('adresse');
             $table->string('ville');
             $table->string('pays');
             $table->integer('code_postal');

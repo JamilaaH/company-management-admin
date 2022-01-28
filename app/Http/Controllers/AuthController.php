@@ -10,6 +10,30 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+
+    public function register(Request $request)
+    {
+        $form = $request->validate([
+            'nom' => 'required|string',
+            'email' => 'required|string',
+            'password' => 'required|string|confirmed',
+        ]);
+
+        $user = User::create([
+            'nom' => $form['nom'],
+            'email' => $form['email'],
+            'password' => bcrypt($form['password']),
+        ]);
+
+        $token = $user->createToken('api_token')->plainTextToken;
+
+        $response = [
+            'user'=>$user,
+            'token' => $token,
+        ];
+        
+        return response()->json($response, 201);
+    }
     public function login(Request $request)
     {
         // dd($request->email);
@@ -18,7 +42,9 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
         if (!Auth::attempt($form)) {
-            return $this->error('Mot de passe ou email invalides', 401);
+            return response()->json([
+                "message"=>'Mot de passe ou email invalides',
+            ]);
         }
         //rechercher l'user
         $user = User::where('email', $form['email'])->first();
@@ -31,11 +57,9 @@ class AuthController extends Controller
         }
 
         $token = $user->createToken('api_token')->plainTextToken;
-        // $entreprise = Entreprise::where('user_id', Auth::id())->get();
         $response = [
             'message'=>"vous êtes connecté",
             'user'=> $user,
-            // 'entreprise'=>$user->entreprise,
             'token' => $token,
         ];
         
