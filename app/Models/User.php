@@ -43,7 +43,7 @@ class User extends Authenticatable
     // ];
     public function entreprise()
     {
-        return $this->hasOne(Entreprise::class, 'tva');
+        return $this->hasOne(Entreprise::class);
     }
 
     public function messages()

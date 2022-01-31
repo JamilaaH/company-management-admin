@@ -25,6 +25,11 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum']);
 
 Route::get('/entreprise', [EntrepriseController::class, 'index'])->middleware(['auth:sanctum']);
-Route::post('/storeentreprise', [EntrepriseController::class, 'register'])->middleware(['auth:sanctum']);
+Route::post('/entreprise/store', [EntrepriseController::class, 'register'])->middleware(['auth:sanctum']);
 Route::put('/entreprise/update', [EntrepriseController::class, 'update'])->middleware(['auth:sanctum']);
 
+Route::get('/task', [EntrepriseController::class, 'task'])->middleware(['auth:sanctum']);
+Route::put('/task/{id}', [EntrepriseController::class, 'done'])->middleware(['auth:sanctum']);
+
+Route::get('/messages', [EntrepriseController::class, 'messages'])->middleware(['auth:sanctum']);
+Route::post('/messages/store', [EntrepriseController::class, 'envoiMessage'])->middleware(['auth:sanctum']);

@@ -11,6 +11,6 @@ class Tache extends Model
 
     public function entreprise()
     {
-        return $this->belongsTo(Entreprise::class, 'TVA');
+        return $this->belongsTo(Entreprise::class);
     }
 }

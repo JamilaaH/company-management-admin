@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Entreprise extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'tva';
+    // protected $primaryKey = 'tva';
     public $incrementing = false;
+    
 
     public function user()
     {

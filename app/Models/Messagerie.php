@@ -9,6 +9,12 @@ class Messagerie extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'author_id',
+        'entreprise_id',
+        'message',
+    ];
+
     public function author()
     {
         return $this->belongsTo(User::class, 'author_id');

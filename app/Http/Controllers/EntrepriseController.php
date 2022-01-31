@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Entreprise;
+use App\Models\Messagerie;
+use App\Models\Tache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -82,8 +84,68 @@ class EntrepriseController extends Controller
             'message'=>'entreprise enregistrée',
             'data'=>$entreprise,
         ]);
+    }
+
+    public function task()
+    {
+        $taches = Tache::where('entreprise_id', Auth::user()->entreprise->tva)->get();
+        return response()->json([
+            'taches'=> $taches
+        ]);
+    }
+
+    public function done(Tache $id)
+    {
+        $tache = $id;
+        switch ($tache->etat) {
+            case (0):
+                $tache->etat = 1;
+                $tache->save();
+                break;
+            case (1):
+                $tache->etat = 0;
+                $tache->save();
+                break;
+            
+            default:
+                
+                break;
+        }
+        
+        $taches = Tache::where('entreprise_id', Auth::user()->entreprise->tva)->get();
+        return response()->json([
+            "taches" => $taches
+        ]);
 
     }
 
+    public function messages()
+    {
+        $messages = Messagerie::where('entreprise_id', Auth::user()->entreprise->tva)->with('author')->with('entreprise')->get();
+        return response()->json([
+            'messages'=>$messages,
+        ]);
+    }
+
+    public function envoiMessage(Request $request)
+    {
+        $request->validate([
+            "texte"=>"required"
+        ]);
+
+        $message = Messagerie::create([
+            "author_id" => Auth::user()->id,
+            "entreprise_id" => Auth::user()->entreprise->tva,
+            "message" => $request->texte,
+        ]);
+        // $message = new Messagerie();
+        // $message->save();
+
+        return response()->json([
+            "message"=>'message envoyé',
+            'text'=> $message
+        ]);
+
+    }
 
 }
