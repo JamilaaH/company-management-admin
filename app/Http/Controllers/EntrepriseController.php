@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ChatEvent;
 use App\Models\Entreprise;
 use App\Models\Messagerie;
 use App\Models\Tache;
@@ -140,7 +141,7 @@ class EntrepriseController extends Controller
         ]);
         // $message = new Messagerie();
         // $message->save();
-
+        broadcast(new ChatEvent($message));
         return response()->json([
             "message"=>'message envoyé',
             'text'=> $message

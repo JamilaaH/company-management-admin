@@ -12,6 +12,7 @@
           <div class="card card-primary">
             <div class="card-body">
               <p>{{$tache->text}}</p>
+              <p> Fait le {{$tache->updated_at->format('d/m/Y')}} à {{$tache->updated_at->format('H:i')}}</p>
             </div>
           </div>
         </div>

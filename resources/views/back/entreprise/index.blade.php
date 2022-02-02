@@ -29,7 +29,7 @@
                     <tbody>
                         @foreach ($entreprises as $entreprise)
                         <tr>
-                          <td>{{$entreprise->id}}</td>
+                          <td>{{$entreprise->tva}}</td>
                           <td>{{$entreprise->nom}}</td>
                           <td>{{$entreprise->activite}}</td>
                           <td>{{$entreprise->code_postal}} {{$entreprise->ville}} </td>

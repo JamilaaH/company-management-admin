@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MessagerieController;
+use App\Http\Controllers\SocialiteController;
 use App\Http\Controllers\TacheController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,16 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Auth::routes();
 
+# Socialite URLs
+
+// La page où on présente les liens de redirection vers les providers
+Route::get("login-register", [SocialiteController::class,'loginRegister']);
+
+// La redirection vers le provider
+Route::get("redirect/{provider}", [SocialiteController::class,'redirect'])->name('socialite.redirect');
+
+// Le callback du provider
+Route::get("callback/{provider}", [SocialiteController::class,'callback'])->name('socialite.callback');
 
 Route::middleware(['auth'])->group(function() {
     Route::get('/home', [AdminController::class, 'index'])->name('home');

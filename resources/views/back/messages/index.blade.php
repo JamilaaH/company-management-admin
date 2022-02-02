@@ -23,7 +23,6 @@
                         <table class="table table-hover table-striped">
                             <tbody>
                                 @foreach ($entreprises as $entreprise)
-                                    @dump($entreprise->messages)
                                     {{-- @dump($entreprise->messages) --}}
                                     @if ($entreprise->messages->isNotEmpty())
                                         <tr>

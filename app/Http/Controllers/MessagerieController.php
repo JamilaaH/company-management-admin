@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ChatEvent;
 use App\Models\Entreprise;
 use App\Models\Messagerie;
 use Illuminate\Http\Request;
@@ -37,6 +38,7 @@ class MessagerieController extends Controller
         $message->entreprise_id = $request->entreprise;
         $message->message = $request->message;
         $message->save();
+        broadcast(new ChatEvent($message));
         return redirect()->route('messages.index')->with('success', 'message envoyé');
     }
 
