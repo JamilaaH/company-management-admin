@@ -34,8 +34,4 @@ window.Echo = new Echo({
     disableStats: true,
 });
 
-window.Echo.channel("chat").listen("ChatEvent", (event)=>{
-    console.log(event)
-    console.log('coucou');
 
-});
