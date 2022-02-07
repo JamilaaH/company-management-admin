@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\NewUserJob;
+use App\Jobs\TacheJob;
+use App\Mail\NewUser;
 use App\Models\Entreprise;
 use App\Models\User;
+use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -26,7 +31,7 @@ class AuthController extends Controller
         ]);
 
         $token = $user->createToken('api_token')->plainTextToken;
-
+        dispatch(new NewUserJob($user));
         $response = [
             'user'=>$user,
             'token' => $token,

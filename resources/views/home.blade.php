@@ -25,9 +25,9 @@
         <div class="col-4">
             <div class="small-box bg-success">
                 <div class="inner">
-                    <h3>{{ $messages }}</h3>
+                    <h3>{{ Auth::user()->unreadNotifications->count() }}</h3>
 
-                    <p>Message{{$messages >1 ? 's' : ''}}</p>
+                    <p>Message{{Auth::user()->unreadNotifications->count() >1 ? 's' : ''}}</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-inbox"></i>
@@ -51,4 +51,5 @@
             </div>
         </div>
     </div>
+    @dump(Auth::user()->unreadNotifications->count())
 @stop

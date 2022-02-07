@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\TacheJob;
 use App\Models\Entreprise;
 use App\Models\Tache;
 use Illuminate\Http\Request;
@@ -32,6 +33,9 @@ class TacheController extends Controller
         $tache->text = $request->text ;
         $tache->etat = 0 ;
         $tache->save();
+        $entreprise = Entreprise::where('tva',$tache->entreprise_id)->first();
+        $user = $entreprise->user;
+        dispatch(new TacheJob($user, $tache))->delay(now()->addMinutes(10));
         return redirect()->route('tache.index')->with('success', 'Tâche bien ajoutée');
     }
 

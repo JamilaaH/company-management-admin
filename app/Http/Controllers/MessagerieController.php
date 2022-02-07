@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Events\ChatEvent;
 use App\Models\Entreprise;
 use App\Models\Messagerie;
+use App\Models\User;
+use App\Notifications\NewMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,7 +41,11 @@ class MessagerieController extends Controller
         $message->message = $request->message;
         $message->save();
         broadcast(new ChatEvent($message));
-        return redirect()->route('messages.index')->with('success', 'message envoyé');
+        $to = Entreprise::where('tva', $message->entreprise_id)->first();
+        $destination = $to->user;
+        //notification coté entreprise
+        $destination->notify(new NewMessage('Admin', $message));
+        return redirect()->back();
     }
 
     public function create()

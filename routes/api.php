@@ -24,6 +24,8 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum']);
 
+//dashboard avec notif 
+Route::get('/dashboard', [EntrepriseController::class, 'dashboard'])->middleware(['auth:sanctum']);
 Route::get('/entreprise', [EntrepriseController::class, 'index'])->middleware(['auth:sanctum']);
 Route::post('/entreprise/store', [EntrepriseController::class, 'register'])->middleware(['auth:sanctum']);
 Route::put('/entreprise/update', [EntrepriseController::class, 'update'])->middleware(['auth:sanctum']);
