@@ -3,8 +3,6 @@
 namespace App\Jobs;
 
 use App\Events\NewTache;
-use App\Mail\newTask;
-use App\Mail\NewUser;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -38,7 +36,6 @@ class TacheJob implements ShouldQueue
     public function handle()
     {
         event(new NewTache($this->user, $this->tache));
-        // Mail::to($this->user)->send(new NewTask($this->tache));
 
     }
 }

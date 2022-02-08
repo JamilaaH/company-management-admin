@@ -35,7 +35,7 @@ class TacheController extends Controller
         $tache->save();
         $entreprise = Entreprise::where('tva',$tache->entreprise_id)->first();
         $user = $entreprise->user;
-        dispatch(new TacheJob($user, $tache))->delay(now()->addMinutes(10));
+        dispatch(new TacheJob($user, $tache));
         return redirect()->route('tache.index')->with('success', 'Tâche bien ajoutée');
     }
 

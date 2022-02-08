@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Events\NewTache;
+use App\Events\NewUser;
 use App\Listeners\NewTacheListener;
+use App\Listeners\NewUserListener;
 use App\Listeners\SendMessageNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -23,6 +25,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         NewTache::class => [
             NewTacheListener::class
+        ],
+        NewUser::class => [
+            NewUserListener::class
         ]
     ];
 

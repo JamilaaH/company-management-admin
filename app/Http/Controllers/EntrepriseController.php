@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\ChatEvent;
 use App\Models\Entreprise;
 use App\Models\Messagerie;
+use App\Models\Notification as ModelsNotification;
 use App\Models\Tache;
 use App\Models\User;
 use App\Notifications\NewMessage;
@@ -23,10 +24,14 @@ class EntrepriseController extends Controller
                 "valid" => false
             ]);
         } else {
+            //récuperer taches
+            $taches = ModelsNotification::where('notifiable_id', Auth::user()->id)->where('read_at', null)->where('type', 'like', '%NewTask')->get();
+            $messages = ModelsNotification::where('notifiable_id', Auth::user()->id)->where('read_at', null)->where('type', 'like', '%NewMessage')->get();
             return response()->json([
                 "valid"=>true,
-                'data'=>$notifications,
-                "message"=>"la liste des notifications est bien récupérée",
+                'taches'=>$taches,
+                'messages'=>$messages,
+                "success"=>"la liste des notifications est bien récupérée",
             ]); 
         }
     }

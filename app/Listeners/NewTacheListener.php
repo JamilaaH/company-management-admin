@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\NewTache;
 use App\Mail\NewTask;
+use App\Notifications\NewTask as NotificationsNewTask;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
@@ -28,8 +29,10 @@ class NewTacheListener implements ShouldQueue
      */
     public function handle(NewTache $event)
     {
-        // Mail::to($this->user)->send(new NewTask($this->tache));
-        // $data = $event;
-        var_dump($event);
+        $email = $event->user->email;
+        Mail::to($email)->send(new NewTask($event->tache));
+        //user pr avoir la notification
+        $user = $event->user;
+        $user->notify(new NotificationsNewTask($event->tache));
     }
 }
