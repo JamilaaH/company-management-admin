@@ -37,7 +37,7 @@
                           <td>{{$tache->etat == 0 ? "Non fait": "fait"}} </td>
                           <td class="text-left align-middle">
                               <div class="flex">
-                                  <button class="btn btn-info" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{$tache->id}}"><i class="fas fa-eye"></i></button>
+                                  <button class="btn btn-info" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{$tache->id}}"><i class="fas fa-eye"></i></button>                                    
                                   <form action="{{route('tache.destroy', $tache->id)}}" method="post" class="mt-1  w-25 m-0">
                                     @method('DELETE')
                                     @csrf

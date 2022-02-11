@@ -20,8 +20,8 @@ class NewMessage extends Notification implements ShouldQueue
      */
     public function __construct(  $user,$message)
     {
-        $this->message = $message;
         $this->user = $user;
+        $this->message = $message;
     }
 
     /**

@@ -15,7 +15,7 @@ class AdminController extends Controller
     function index()
     {
         $nbreEntreprise = Entreprise::all()->count();
-        $messages = Messagerie::all()->count();
+        $messages = Auth::user()->unreadNotifications;
         $taches = Tache::all()->count();
         return view('home', compact('nbreEntreprise', 'messages', 'taches'));
     }

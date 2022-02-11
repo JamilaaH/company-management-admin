@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\ChatEvent;
+use App\Jobs\NewChatJob;
 use App\Models\Entreprise;
 use App\Models\Messagerie;
 use App\Models\Notification as ModelsNotification;
@@ -14,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
+//toutes les fonctions coté vue
 class EntrepriseController extends Controller
 {
     public function dashboard()
@@ -65,9 +67,9 @@ class EntrepriseController extends Controller
             "numero_contact"=> "required",
         ]);
 
-        $entreprise = Entreprise::where('user_id', Auth::user()->id)->first();
-        $entreprise->tva = $request->tva;
+        $entreprise = Entreprise::where('user_id', Auth::id())->first();
         $entreprise->nom = $request->nom;
+        $entreprise->tva = $request->tva;
         $entreprise->activite = $request->activite;
         $entreprise->ville = $request->ville;
         $entreprise->pays = $request->pays;
@@ -122,9 +124,16 @@ class EntrepriseController extends Controller
     public function task()
     {
         $taches = Tache::where('entreprise_id', Auth::user()->entreprise->tva)->get();
-        return response()->json([
-            'taches'=> $taches
-        ]);
+        if ($taches->isEmpty()) {
+            return response()->json([
+                'message'=> 'pas de taches'
+            ],404);            
+        } else {
+            return response()->json([
+                'taches'=> $taches
+            ]);            
+
+        }
     }
 
     public function done(Tache $id)
@@ -171,11 +180,7 @@ class EntrepriseController extends Controller
             "entreprise_id" => Auth::user()->entreprise->tva,
             "message" => $request->texte,
         ]);
-        // $message = new Messagerie();
-        // $message->save();
-        broadcast(new ChatEvent($message));
-        $admin = User::find(1);
-        $admin->notify(new NewMessage(Auth::user()->entreprise->nom_contact, $message));
+        NewChatJob::dispatch($message->entreprise, $message);
         return response()->json([
             "message"=>'message envoyé',
             'text'=> $message

@@ -45,7 +45,8 @@ return [
     |
     */
 
-    'logo' => 'Administrateur',
+    ['logo' => 'Admin', 
+    'can'=>'isAdmin'],
     'logo_img' => 'https://cdn3.iconfinder.com/data/icons/vector-icons-6/96/256-512.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -230,22 +231,27 @@ return [
             'type'         => 'fullscreen-widget',
             'topnav_right' => true,
         ],
-        ['header' => "Gestion des entreprises"],
+        ['header' => "Gestion des entreprises",
+        'can'=>'isAdmin'],
         [
             'text' => 'Listes',
             'route'  => 'entreprise.index',
             'icon' => 'fas fa-list',
-            
+            'can'    => 'isAdmin',
         ],
         [
             'text' => 'Tâches',
             'route'  => 'tache.index',
             'icon' => 'fas fa-clipboard-check',
+            'can'    => 'isAdmin',
+
         ],
         [
             'text' => 'Messagerie',
             'route'  => 'messages.index',
             'icon' => 'fas fa-envelope',
+            'can'    => 'isAdmin',
+
         ],
         ['header' => "Mon compte"],
         [

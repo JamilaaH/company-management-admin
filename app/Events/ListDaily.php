@@ -1,4 +1,4 @@
-<?php
+?php
 
 namespace App\Events;
 
@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ChatEvent implements ShouldBroadcast
+class ListDaily
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -20,10 +20,10 @@ class ChatEvent implements ShouldBroadcast
      * @return void
      */
     
-    public $message;
-    public function __construct($message)
+    public $taches ;
+    public function __construct($taches)
     {
-        $this->message = $message;
+        $this->taches = $taches;
     }
 
     /**
@@ -33,6 +33,6 @@ class ChatEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('chat');
+        return new PrivateChannel('channel-name');
     }
 }

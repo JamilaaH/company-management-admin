@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\ListDaily;
 use App\Events\NewTache;
 use App\Events\NewUser;
+use App\Listeners\ListDailyListener;
 use App\Listeners\NewTacheListener;
 use App\Listeners\NewUserListener;
 use App\Listeners\SendMessageNotification;
@@ -28,7 +30,8 @@ class EventServiceProvider extends ServiceProvider
         ],
         NewUser::class => [
             NewUserListener::class
-        ]
+        ],
+    
     ];
 
     /**

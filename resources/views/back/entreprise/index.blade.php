@@ -16,7 +16,7 @@
                   <table class="table table-head-fixed">
                     <thead>
                       <tr>
-                        <th>ID</th>
+                        <th>TVA</th>
                         <th>Nom</th>
                         <th>Activité</th>
                         <th>Ville</th>

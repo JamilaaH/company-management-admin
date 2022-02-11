@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\ChatEvent;
+use App\Jobs\NewChatJob;
 use App\Models\Entreprise;
 use App\Models\Messagerie;
 use App\Models\User;
@@ -10,6 +11,7 @@ use App\Notifications\NewMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+//messagerie coté admin
 class MessagerieController extends Controller
 {
     public function index()
@@ -17,6 +19,11 @@ class MessagerieController extends Controller
         $entreprises = Entreprise::all();
         $messages = Messagerie::all();
         $reponse = Auth::user()->messages;
+        $notifications = Auth::user()->unreadNotifications;
+        foreach ($notifications as $notification ) {
+            $notification->markAsRead();
+            // $notification->save();
+        };
         return view("back.messages.index", compact('messages', 'reponse', 'entreprises'));
     }
 
@@ -40,12 +47,9 @@ class MessagerieController extends Controller
         $message->entreprise_id = $request->entreprise;
         $message->message = $request->message;
         $message->save();
-        broadcast(new ChatEvent($message));
-        $to = Entreprise::where('tva', $message->entreprise_id)->first();
-        $destination = $to->user;
-        //notification coté entreprise
-        $destination->notify(new NewMessage('Admin', $message));
-        return redirect()->back();
+        NewChatJob::dispatch($message->entreprise, $message);
+
+        return redirect()->route('messages.index');
     }
 
     public function create()

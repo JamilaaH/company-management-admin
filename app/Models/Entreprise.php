@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Entreprise extends Model
 {
     use HasFactory;
-    // protected $primaryKey = 'tva';
+    protected $primaryKey = 'tva';
     public $incrementing = false;
     
 
@@ -24,6 +24,6 @@ class Entreprise extends Model
 
     public function taches()
     {
-        return $this->hasMany(Tache::class);
+        return $this->hasMany(Tache::class,'entreprise_id', 'tva');
     }
 }

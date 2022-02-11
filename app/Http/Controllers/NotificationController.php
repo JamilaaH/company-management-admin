@@ -6,6 +6,7 @@ use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+//notification coté vue
 class NotificationController extends Controller
 {
     public function readingMessage()

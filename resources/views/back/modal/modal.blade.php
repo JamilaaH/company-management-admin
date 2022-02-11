@@ -18,7 +18,9 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <a href="{{route('tache.edit', $tache->id)}}" class="btn btn-primary">Edit</a>
+          @if ($tache->etat  == 0)
+            <a href="{{route('tache.edit', $tache->id)}}" class="btn btn-primary">Edit</a>
+          @endif        
         </div>
       </div>
     </div>

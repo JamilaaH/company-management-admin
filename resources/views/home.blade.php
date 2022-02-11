@@ -8,6 +8,7 @@
 
 @section('content')
     <div class="row">
+        @admin
         <div class="col-4">
             <div class="small-box bg-info">
                 <div class="inner">
@@ -40,7 +41,6 @@
             <div class="small-box bg-danger">
                 <div class="inner">
                     <h3>{{ $taches }}</h3>
-
                     <p>Tâche{{$taches >1 ? 's' : ''}} créée{{$taches >1 ? 's' : ''}}</p>
                 </div>
                 <div class="icon">
@@ -50,6 +50,9 @@
                         class="fas fa-arrow-circle-right"></i></a>
             </div>
         </div>
+        @endadmin
+        @entreprise
+            <p>Bonjour {{Auth::user()->nom}}</p>
+        @endentreprise
     </div>
-    @dump(Auth::user()->unreadNotifications->count())
 @stop

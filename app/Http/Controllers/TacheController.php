@@ -7,6 +7,7 @@ use App\Models\Entreprise;
 use App\Models\Tache;
 use Illuminate\Http\Request;
 
+//controller tache de l'admin pour créer/voir les taches
 class TacheController extends Controller
 {
     public function index()

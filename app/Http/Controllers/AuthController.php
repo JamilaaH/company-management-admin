@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
+    //authenfication coté vue
 
     public function register(Request $request)
     {
@@ -41,15 +42,15 @@ class AuthController extends Controller
     }
     public function login(Request $request)
     {
-        // dd($request->email);
         $form = $request->validate([
             'email' => 'required|string',
             'password' => 'required',
         ]);
+        //vérifie si la connexion a échoué 
         if (!Auth::attempt($form)) {
             return response()->json([
                 "message"=>'Mot de passe ou email invalides',
-            ]);
+            ],401);
         }
         //rechercher l'user
         $user = User::where('email', $form['email'])->first();
@@ -58,7 +59,7 @@ class AuthController extends Controller
         if (!$user || !Hash::check($form["password"], $user->password)) {
             return response()->json([
                 'message'=>"mot de passe ou email invalide"
-            ]);
+            ], 401);
         }
 
         $token = $user->createToken('api_token')->plainTextToken;

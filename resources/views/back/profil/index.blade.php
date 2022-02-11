@@ -20,7 +20,7 @@
   
                   <h3 class="profile-username text-center">{{Auth::user()->nom}}</h3>
   
-                  <p class="text-muted text-center">Administrateur</p>
+                  <p class="text-muted text-center">{{Auth::id()==1 ? "Admin": "Entreprise"}}</p>
   
                   <a href="{{route('profil.edit')}}" class="btn btn-primary btn-block"><b>Edit</b></a>
                 </div>
